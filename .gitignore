@@ -1,0 +1,33 @@
+# Variáveis de ambiente — NUNCA subir
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+dist/
+build/
+
+# Banco de dados local
+data/
+*.db
+*.sqlite
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Frontend build
+frontend/dist/
+frontend/.vite/
+
+# TypeScript
+*.tsbuildinfo

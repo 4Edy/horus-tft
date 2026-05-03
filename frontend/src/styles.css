@@ -1,0 +1,215 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-display: "Cinzel", serif;
+  --font-mono: "Share Tech Mono", monospace;
+  --font-sans: "Outfit", system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface);
+  --color-popover-foreground: var(--foreground);
+
+  --color-primary: var(--gold);
+  --color-primary-foreground: var(--background);
+  --color-secondary: var(--cyan);
+  --color-secondary-foreground: var(--background);
+  --color-accent: var(--violet);
+  --color-accent-foreground: var(--foreground);
+
+  --color-muted: var(--surface-2);
+  --color-muted-foreground: var(--muted-fg);
+
+  --color-destructive: var(--defeat);
+  --color-destructive-foreground: var(--foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--border);
+  --color-ring: var(--gold);
+
+  --color-gold: var(--gold);
+  --color-cyan: var(--cyan);
+  --color-violet: var(--violet);
+  --color-victory: var(--victory);
+  --color-defeat: var(--defeat);
+  --color-parchment: var(--foreground);
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* HORUS palette in oklch */
+  --background: oklch(0.12 0.02 260);          /* #04070d */
+  --surface: oklch(0.17 0.025 260);            /* #080f1a */
+  --surface-2: oklch(0.21 0.03 260);           /* #0c1525 */
+  --foreground: oklch(0.85 0.05 80);           /* #d4c5a9 parchment */
+  --muted-fg: oklch(0.55 0.02 250);            /* #4a5568 */
+  --border: oklch(0.32 0.04 80 / 0.4);
+
+  --gold: oklch(0.72 0.14 80);                 /* #c8960c */
+  --cyan: oklch(0.72 0.13 210);                /* #00b4cc */
+  --violet: oklch(0.55 0.22 290);              /* #7c3aed */
+  --victory: oklch(0.72 0.17 160);             /* #10b981 */
+  --defeat: oklch(0.66 0.22 25);               /* #ef4444 */
+
+  --chart-1: var(--gold);
+  --chart-2: var(--cyan);
+  --chart-3: var(--violet);
+  --chart-4: var(--victory);
+  --chart-5: var(--defeat);
+
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--gold);
+  --sidebar-primary-foreground: var(--background);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--gold);
+}
+
+.dark {
+  --background: oklch(0.12 0.02 260);
+  --foreground: oklch(0.85 0.05 80);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+
+  body {
+    background-image:
+      radial-gradient(ellipse at top, oklch(0.18 0.04 260 / 0.6), transparent 60%),
+      radial-gradient(ellipse at bottom, oklch(0.15 0.05 290 / 0.4), transparent 70%);
+    min-height: 100vh;
+  }
+
+  ::selection { background: var(--gold); color: var(--background); }
+}
+
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-mono { font-family: var(--font-mono); }
+  .font-sans { font-family: var(--font-sans); }
+
+  /* Octagonal portrait clip */
+  .clip-octagon {
+    clip-path: polygon(
+      30% 0%, 70% 0%, 100% 30%, 100% 70%,
+      70% 100%, 30% 100%, 0% 70%, 0% 30%
+    );
+  }
+
+  /* Tablet/stone-card clip — diagonal cut top-right & bottom-left */
+  .clip-tablet {
+    clip-path: polygon(
+      0 14px, 14px 0,
+      calc(100% - 14px) 0, 100% 14px,
+      100% calc(100% - 14px), calc(100% - 14px) 100%,
+      14px 100%, 0 calc(100% - 14px)
+    );
+  }
+
+  .clip-tablet-sm {
+    clip-path: polygon(
+      0 8px, 8px 0,
+      calc(100% - 8px) 0, 100% 8px,
+      100% calc(100% - 8px), calc(100% - 8px) 100%,
+      8px 100%, 0 calc(100% - 8px)
+    );
+  }
+
+  .text-glow-gold {
+    text-shadow:
+      0 0 8px oklch(0.72 0.14 80 / 0.6),
+      0 0 22px oklch(0.72 0.14 80 / 0.35);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 10px oklch(0.72 0.13 210 / 0.6);
+  }
+
+  .text-glow-violet {
+    text-shadow: 0 0 10px oklch(0.55 0.22 290 / 0.6);
+  }
+
+  .shadow-gold-glow {
+    box-shadow:
+      0 0 0 1px oklch(0.72 0.14 80 / 0.4),
+      0 0 30px oklch(0.72 0.14 80 / 0.25),
+      inset 0 0 24px oklch(0.72 0.14 80 / 0.05);
+  }
+
+  .noise {
+    position: relative;
+  }
+  .noise::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+  }
+
+  .double-border-gold {
+    box-shadow:
+      inset 0 0 0 1px oklch(0.72 0.14 80 / 0.7),
+      inset 0 0 0 4px var(--surface),
+      inset 0 0 0 5px oklch(0.72 0.14 80 / 0.4);
+  }
+
+  .scan-line {
+    position: absolute; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    box-shadow: 0 0 10px var(--gold);
+  }
+
+  @keyframes horus-pulse {
+    0%, 100% { opacity: 0.85; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.03); }
+  }
+  .animate-horus-pulse { animation: horus-pulse 3.5s ease-in-out infinite; }
+
+  @keyframes scan-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .animate-scan-rotate { animation: scan-rotate 18s linear infinite; }
+
+  @keyframes scan-sweep {
+    0% { top: 0%; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+  .animate-scan-sweep { animation: scan-sweep 1.6s ease-out forwards; }
+
+  @keyframes glitch {
+    0%, 100% { transform: translate(0); }
+    20% { transform: translate(-1px, 1px); }
+    40% { transform: translate(1px, -1px); }
+    60% { transform: translate(-1px, -1px); }
+    80% { transform: translate(1px, 1px); }
+  }
+  .animate-glitch { animation: glitch 0.4s infinite; }
+}
